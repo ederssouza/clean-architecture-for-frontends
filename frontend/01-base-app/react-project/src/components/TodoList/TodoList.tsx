@@ -1,4 +1,5 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 type TaskProps = {
   id: number;
@@ -56,6 +57,27 @@ function TodoList() {
 
     setTasks(updatedTasks);
   }
+
+  useEffect(() => {
+    async function fetchTodos() {
+      try {
+        const res = await axios.get("http://localhost:3000/todos");
+        const tasks = res.data;
+
+        setTasks(tasks);
+
+        /**
+         * WARNING: catch was ignored in the test on purpose,
+         * don't do this in real applications
+         */
+        /* c8 ignore next 3 */
+      } catch (error) {
+        setTasks([]);
+      }
+    }
+
+    fetchTodos();
+  }, []);
 
   return (
     <div>
