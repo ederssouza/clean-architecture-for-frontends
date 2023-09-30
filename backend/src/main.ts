@@ -9,7 +9,7 @@ app.get("/todos", async (req, res) => {
   const todos = [
     {
       id: Date.now(),
-      text: "Study JS",
+      text: "Study Clean Architecture",
       isCompleted: false,
     },
   ];
