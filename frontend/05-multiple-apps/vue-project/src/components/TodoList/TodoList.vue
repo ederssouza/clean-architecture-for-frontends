@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
-import axios from "axios";
+import { computed, inject, onMounted, ref } from "vue";
 import { TodoInput } from "../TodoInput";
 import { TodoListItem } from "../TodoListItem";
-import { Task, TodoList } from "../../entities";
+import { TodoList } from "../../entities";
+import { TodosGateway } from "../../gateways";
 
 const todoList = ref(new TodoList());
 const hasValidTasks = computed(() => todoList.value.getTotal() > 0);
@@ -23,9 +23,8 @@ function handleRemoveTask(taskId: string) {
 onMounted(() => {
   async function fetchTodos() {
     try {
-      const { data: tasks } = await axios.get<Task[]>(
-        "http://localhost:3000/todos"
-      );
+      const todosGateway = inject("todosGateway") as TodosGateway;
+      const tasks = await todosGateway.getTodos();
 
       tasks.forEach((task) => todoList.value.add(task.text));
 
