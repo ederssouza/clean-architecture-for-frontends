@@ -1,19 +1,20 @@
 <script setup lang="ts">
-type Task = {
-  id: string;
-  text: string;
-  isCompleted: boolean;
-};
+import { Task } from "../../entities";
 
 defineProps<{
   task: Task;
+  onToggleDone: (taskId: string) => void;
   onRemoveTask: (taskId: string) => void;
 }>();
 </script>
 
 <template>
   <li>
-    <input v-model="task.isCompleted" type="checkbox" />
+    <input
+      :checked="task.isCompleted"
+      type="checkbox"
+      @change="onToggleDone(task.id)"
+    />
     <span :class="{ 'task-completed': task.isCompleted }">{{ task.text }}</span>
     <button type="button" @click="onRemoveTask(task.id)">Remove</button>
   </li>
