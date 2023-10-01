@@ -60,9 +60,7 @@ describe("<TodoList />", () => {
 
         const newTask = "     ";
         const totalTasks = screen.getByTestId("total-tasks");
-        const input = screen.getByPlaceholderText(
-          "Type your task and press Enter"
-        );
+        const input = screen.getByPlaceholderText("Type your task...");
 
         fireEvent.update(input, newTask);
         fireEvent.submit(input);
@@ -84,9 +82,7 @@ describe("<TodoList />", () => {
 
         const newTask = "Study JS";
         const totalTasks = screen.getByTestId("total-tasks");
-        const input = screen.getByPlaceholderText(
-          "Type your task and press Enter"
-        );
+        const input = screen.getByPlaceholderText("Type your task...");
 
         fireEvent.update(input, newTask);
         fireEvent.submit(input);
@@ -112,9 +108,7 @@ describe("<TodoList />", () => {
         const newTask = "Study JS";
         const otherTask = "Study React";
         const totalTasks = screen.getByTestId("total-tasks");
-        const input = screen.getByPlaceholderText(
-          "Type your task and press Enter"
-        );
+        const input = screen.getByPlaceholderText("Type your task...");
 
         fireEvent.update(input, newTask);
         fireEvent.submit(input);
@@ -152,9 +146,7 @@ describe("<TodoList />", () => {
 
           const newTask = "Study JS";
           const totalTasks = screen.getByTestId("total-tasks");
-          const input = screen.getByPlaceholderText(
-            "Type your task and press Enter"
-          );
+          const input = screen.getByPlaceholderText("Type your task...");
 
           fireEvent.update(input, newTask);
           fireEvent.submit(input);

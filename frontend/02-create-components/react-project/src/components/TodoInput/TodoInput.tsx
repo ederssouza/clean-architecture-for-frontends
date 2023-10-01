@@ -32,7 +32,7 @@ function TodoInput(props: Props) {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Type your task and press Enter"
+        placeholder="Type your task..."
         value={task}
         onChange={handleChange}
       />

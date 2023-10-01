@@ -21,10 +21,6 @@ function handleSubmit() {
 
 <template>
   <form @submit.prevent="handleSubmit">
-    <input
-      v-model="task"
-      type="text"
-      placeholder="Type your task and press Enter"
-    />
+    <input v-model="task" type="text" placeholder="Type your task..." />
   </form>
 </template>
