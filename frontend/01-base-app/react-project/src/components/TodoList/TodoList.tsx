@@ -74,7 +74,7 @@ function TodoList() {
     }
 
     fetchTodos();
-  }, [tasks]);
+  }, []);
 
   return (
     <div>
