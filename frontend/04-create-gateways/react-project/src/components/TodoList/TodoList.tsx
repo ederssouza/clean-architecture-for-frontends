@@ -1,10 +1,16 @@
-import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import { TaskProps, TodoListItem } from "../TodoListItem";
 import { TodoInput } from "../TodoInput";
 import { TodoList as TodoListClass } from "../../entities";
+import { TodosGateway } from "../../gateways";
 
-function TodoList() {
+type Props = {
+  todosGateway: TodosGateway;
+};
+
+function TodoList(props: Props) {
+  const { todosGateway } = props;
+
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const todoList = useMemo(() => {
     return new TodoListClass();
@@ -31,8 +37,8 @@ function TodoList() {
   useEffect(() => {
     async function fetchTodos() {
       try {
-        const res = await axios.get<TaskProps[]>("http://localhost:3000/todos");
-        const tasks = res.data.map((task) => todoList.add(task.text));
+        const res = await todosGateway.getTodos();
+        const tasks = res.map((task) => todoList.add(task.text));
 
         setTasks(tasks);
 
@@ -47,7 +53,7 @@ function TodoList() {
     }
 
     fetchTodos();
-  }, [todoList]);
+  }, [todoList, todosGateway]);
 
   return (
     <div>
