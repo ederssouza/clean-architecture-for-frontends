@@ -1,11 +1,7 @@
-export type TaskProps = {
-  id: string;
-  text: string;
-  isCompleted: boolean;
-};
+import { Task } from "../../entities";
 
 type Props = {
-  task: TaskProps;
+  task: Task;
   onToggleDone: (taskId: string) => void;
   onRemoveTask: (taskId: string) => void;
 };
