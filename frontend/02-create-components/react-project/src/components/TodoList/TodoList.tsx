@@ -10,10 +10,10 @@ function TodoList() {
   const hasValidTasks = tasks.length > 0;
 
   function handleSubmit(task: TaskProps) {
-    setTasks([...tasks, task]);
+    setTasks((prevState) => [...prevState, task]);
   }
 
-  function handleToggleDone(taskId: number) {
+  function handleToggleDone(taskId: string) {
     const updatedTasks = tasks.map((task) => {
       if (task.id === taskId) {
         return {
@@ -28,7 +28,7 @@ function TodoList() {
     setTasks(updatedTasks);
   }
 
-  function handleRemoveTask(taskId: number) {
+  function handleRemoveTask(taskId: string) {
     const updatedTasks = tasks.filter((task) => task.id !== taskId);
 
     setTasks(updatedTasks);

@@ -1,13 +1,13 @@
 export type TaskProps = {
-  id: number;
+  id: string;
   text: string;
   isCompleted: boolean;
 };
 
 type Props = {
   task: TaskProps;
-  onToggleDone: (taskId: number) => void;
-  onRemoveTask: (taskId: number) => void;
+  onToggleDone: (taskId: string) => void;
+  onRemoveTask: (taskId: string) => void;
 };
 
 function TodoListItem(props: Props) {

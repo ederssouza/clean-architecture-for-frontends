@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 type TaskProps = {
-  id: number;
+  id: string;
   text: string;
   isCompleted?: boolean;
 };
@@ -22,12 +23,12 @@ function TodoList() {
     }
 
     const newTask = {
-      id: Date.now(),
+      id: uuidv4(),
       text: task,
       isCompleted: false,
     };
 
-    setTasks([...tasks, newTask]);
+    setTasks((prevState) => [...prevState, newTask]);
     setTask("");
   }
 
@@ -37,7 +38,7 @@ function TodoList() {
     setTask(task);
   }
 
-  function handleToggleDoneTask(taskId: number) {
+  function handleToggleDoneTask(taskId: string) {
     const updatedTasks = tasks.map((task) => {
       if (task.id === taskId) {
         return {
@@ -52,7 +53,7 @@ function TodoList() {
     setTasks(updatedTasks);
   }
 
-  function handleRemoveTask(taskId: number) {
+  function handleRemoveTask(taskId: string) {
     const updatedTasks = tasks.filter((task) => task.id !== taskId);
 
     setTasks(updatedTasks);
