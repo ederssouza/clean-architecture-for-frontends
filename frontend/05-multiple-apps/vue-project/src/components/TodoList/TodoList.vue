@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import { v4 as uuidv4 } from "uuid";
 import { TodoInput } from "../TodoInput";
 import { TodoListItem } from "../TodoListItem";
 
 type Task = {
-  id: number;
+  id: string;
   text: string;
   isCompleted: boolean;
 };
@@ -13,11 +14,17 @@ const tasks = ref<Task[]>([]);
 const totalTasks = computed(() => tasks.value.length);
 const hasValidTasks = computed(() => tasks.value.length > 0);
 
-function handleSubmit(task: Task) {
-  tasks.value = [...tasks.value, task];
+function handleSubmit(task: string) {
+  const newTask = {
+    id: uuidv4(),
+    text: task,
+    isCompleted: false,
+  };
+
+  tasks.value = [...tasks.value, newTask];
 }
 
-function handleRemoveTask(taskId: number) {
+function handleRemoveTask(taskId: string) {
   const updatedTasks = tasks.value.filter((task) => task.id !== taskId);
 
   tasks.value = updatedTasks;
