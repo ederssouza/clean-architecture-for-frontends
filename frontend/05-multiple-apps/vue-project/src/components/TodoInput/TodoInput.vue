@@ -1,14 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-type Task = {
-  id: number;
-  text: string;
-  isCompleted: boolean;
-};
-
 const { onSubmit } = defineProps<{
-  onSubmit: (task: Task) => void;
+  onSubmit: (task: string) => void;
 }>();
 
 const task = ref<string>("");
@@ -20,13 +14,7 @@ function handleSubmit() {
     return;
   }
 
-  const newTask = {
-    id: Date.now(),
-    text: taskValue,
-    isCompleted: false,
-  };
-
-  onSubmit(newTask);
+  onSubmit(taskValue);
   task.value = "";
 }
 </script>
