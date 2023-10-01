@@ -1,41 +1,33 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import { TodoInput } from "../TodoInput";
 import { TodoListItem } from "../TodoListItem";
+import { Task, TodoList } from "../../entities";
 
-type Task = {
-  id: string;
-  text: string;
-  isCompleted: boolean;
-};
-
-const tasks = ref<Task[]>([]);
-const totalTasks = computed(() => tasks.value.length);
-const hasValidTasks = computed(() => tasks.value.length > 0);
+const todoList = ref(new TodoList());
+const hasValidTasks = computed(() => todoList.value.getTotal() > 0);
 
 function handleSubmit(task: string) {
-  const newTask = {
-    id: uuidv4(),
-    text: task,
-    isCompleted: false,
-  };
+  todoList.value.add(task);
+}
 
-  tasks.value = [...tasks.value, newTask];
+function handleToggleDone(taskId: string) {
+  todoList.value.toggleDone(taskId);
 }
 
 function handleRemoveTask(taskId: string) {
-  const updatedTasks = tasks.value.filter((task) => task.id !== taskId);
-
-  tasks.value = updatedTasks;
+  todoList.value.remove(taskId);
 }
 
 onMounted(() => {
   async function fetchTodos() {
     try {
-      const { data } = await axios.get("http://localhost:3000/todos");
-      tasks.value = [...tasks.value, ...data];
+      const { data: tasks } = await axios.get<Task[]>(
+        "http://localhost:3000/todos"
+      );
+
+      tasks.forEach((task) => todoList.value.add(task.text));
 
       /**
        * WARNING: catch was ignored in the test on purpose,
@@ -43,7 +35,7 @@ onMounted(() => {
        */
       /* c8 ignore next 3 */
     } catch (error) {
-      tasks.value = [];
+      // error...
     }
   }
 
@@ -56,16 +48,18 @@ onMounted(() => {
     <h1>Vue - TODO List</h1>
 
     <p>
-      Total items: <span data-testid="total-tasks">{{ totalTasks }}</span>
+      Total items:
+      <span data-testid="total-tasks">{{ todoList.getTotal() }}</span>
     </p>
 
     <TodoInput :onSubmit="handleSubmit" />
 
     <ul v-if="hasValidTasks">
       <TodoListItem
-        v-for="task in tasks"
+        v-for="task in todoList.getTasks()"
         :key="task.id"
         :task="task"
+        :onToggleDone="handleToggleDone"
         :onRemoveTask="handleRemoveTask"
       />
     </ul>
