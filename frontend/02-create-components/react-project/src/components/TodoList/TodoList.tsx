@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { TaskProps, TodoListItem } from "../TodoListItem";
 import { TodoInput } from "../TodoInput";
 
@@ -9,8 +10,14 @@ function TodoList() {
   const totalTasks = tasks.length;
   const hasValidTasks = tasks.length > 0;
 
-  function handleSubmit(task: TaskProps) {
-    setTasks((prevState) => [...prevState, task]);
+  function handleSubmit(task: string) {
+    const newTask = {
+      id: uuidv4(),
+      text: task,
+      isCompleted: false,
+    };
+
+    setTasks((prevState) => [...prevState, newTask]);
   }
 
   function handleToggleDone(taskId: string) {
