@@ -28,6 +28,10 @@ class TodoList {
     return newTask;
   }
 
+  getTasks() {
+    return this.tasks;
+  }
+
   getTotal() {
     return this.tasks.length;
   }

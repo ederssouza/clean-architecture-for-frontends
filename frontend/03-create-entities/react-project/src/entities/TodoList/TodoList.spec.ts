@@ -6,7 +6,7 @@ describe("TodoList", () => {
     it("should return an empty array", () => {
       const todoList = new TodoList();
 
-      expect(todoList.tasks).toEqual([]);
+      expect(todoList.getTasks()).toEqual([]);
     });
   });
 
@@ -18,7 +18,7 @@ describe("TodoList", () => {
       const task2 = todoList.add("Study React");
 
       expect(todoList.getTotal()).toBe(2);
-      expect(todoList.tasks).toEqual(
+      expect(todoList.getTasks()).toEqual(
         expect.arrayContaining([
           {
             id: task1.id,
@@ -44,7 +44,7 @@ describe("TodoList", () => {
 
       todoList.toggleDone(task2.id);
 
-      expect(todoList.tasks).toEqual(
+      expect(todoList.getTasks()).toEqual(
         expect.arrayContaining([
           {
             id: task1.id,
@@ -61,7 +61,7 @@ describe("TodoList", () => {
 
       todoList.toggleDone(task2.id);
 
-      expect(todoList.tasks).toEqual(
+      expect(todoList.getTasks()).toEqual(
         expect.arrayContaining([
           {
             id: task1.id,
@@ -88,7 +88,7 @@ describe("TodoList", () => {
       todoList.remove(task1.id);
 
       expect(todoList.getTotal()).toBe(1);
-      expect(todoList.tasks).toEqual(
+      expect(todoList.getTasks()).toEqual(
         expect.arrayContaining([
           {
             id: task2.id,
