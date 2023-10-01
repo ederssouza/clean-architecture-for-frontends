@@ -10,7 +10,7 @@ function TodoInput(props: Props) {
   const [task, setTask] = useState<string>("");
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const task = event.target.value.trim();
+    const task = event.target.value;
 
     setTask(task);
   }
@@ -18,11 +18,13 @@ function TodoInput(props: Props) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!task.length) {
+    const taskValue = task?.trim();
+
+    if (!taskValue.length) {
       return;
     }
 
-    onSubmit(task);
+    onSubmit(taskValue);
     setTask("");
   }
 
