@@ -1,5 +1,5 @@
 import axios from "axios";
-import HttpClient from "./HttpClient";
+import HttpClient from "../HttpClient";
 
 class AxiosAdapter implements HttpClient {
   async get(url: string) {

@@ -1,12 +1,12 @@
-import { TaskProps } from "../components/TodoListItem";
-import TodosGateway from "./TodosGateway";
-import HttpClient from "../http/HttpClient";
+import { Task } from "../../entities";
+import HttpClient from "../../http/HttpClient";
+import { TodosGateway } from "../TodosGateway";
 
 class TodosGatewayHttp implements TodosGateway {
   constructor(readonly httpClient: HttpClient) {}
 
   async getTodos() {
-    const res = await this.httpClient.get<TaskProps[]>(
+    const res = await this.httpClient.get<Task[]>(
       "http://localhost:3000/todos"
     );
 

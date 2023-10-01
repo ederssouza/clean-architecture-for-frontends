@@ -1,4 +1,4 @@
-import HttpClient from "./HttpClient";
+import HttpClient from "../HttpClient";
 
 class FetchAdapter implements HttpClient {
   async get(url: string) {
