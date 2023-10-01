@@ -1,7 +1,20 @@
 import { Task } from "../Task";
 
+/**
+ * O React não rastreia mutações diretas em arrays ou objetos.
+ * Se você estiver alterando diretamente um array ou objeto e depois tentando redefinir
+ * o estado para o mesmo objeto ou array, o React não reconhecerá essa mudança.
+ *
+ * Para resolver este problema, vamos criar novas referências para o array de tarefas
+ * sempre que houver uma alteração.
+ *
+ * Ex.:
+ *  - de `this.tasks.push(newTask)`
+ *  - de `this.tasks = [...this.tasks, newTask];`
+ */
+
 class TodoList {
-  tasks: Task[];
+  private tasks: Task[];
 
   constructor() {
     this.tasks = [];
@@ -10,7 +23,7 @@ class TodoList {
   add(task: string) {
     const newTask = new Task(task);
 
-    this.tasks.push(newTask);
+    this.tasks = [...this.tasks, newTask];
 
     return newTask;
   }
@@ -31,13 +44,13 @@ class TodoList {
       return task;
     });
 
-    return this.tasks;
+    return [...this.tasks];
   }
 
   remove(taskId: string) {
     this.tasks = this.tasks.filter((task) => task.id !== taskId);
 
-    return this.tasks;
+    return [...this.tasks];
   }
 }
 
