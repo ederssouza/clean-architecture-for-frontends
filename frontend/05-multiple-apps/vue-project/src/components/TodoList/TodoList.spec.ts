@@ -4,8 +4,8 @@ import TodoList from "./TodoList.vue";
 
 describe("<TodoList />", () => {
   describe("and the user adds an invalid task", () => {
-    it("should not create a new task", async () => {
-      await waitFor(() => render(TodoList));
+    it("should not create a new task", () => {
+      render(TodoList);
 
       const newTask = "     ";
       const totalTasks = screen.getByTestId("total-tasks");
@@ -23,7 +23,7 @@ describe("<TodoList />", () => {
 
   describe("and the user adds a valid task", () => {
     it("should create a new task", async () => {
-      await waitFor(() => render(TodoList));
+      render(TodoList);
 
       const newTask = "Study JS";
       const totalTasks = screen.getByTestId("total-tasks");
@@ -44,7 +44,7 @@ describe("<TodoList />", () => {
 
   describe("and the user switches task completion", () => {
     it("should alternates task style", async () => {
-      await waitFor(() => render(TodoList));
+      render(TodoList);
 
       const newTask = "Study JS";
       const otherTask = "Study React";
@@ -79,7 +79,7 @@ describe("<TodoList />", () => {
 
     describe("when the user clicks on delete task button", () => {
       it("should remove task", async () => {
-        await waitFor(() => render(TodoList));
+        render(TodoList);
 
         const newTask = "Study JS";
         const totalTasks = screen.getByTestId("total-tasks");
