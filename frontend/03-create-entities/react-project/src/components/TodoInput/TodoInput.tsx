@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { TaskProps } from "../TodoListItem";
 
 type Props = {
-  onSubmit: (task: TaskProps) => void;
+  onSubmit: (task: string) => void;
 };
 
 function TodoInput(props: Props) {
@@ -24,13 +22,7 @@ function TodoInput(props: Props) {
       return;
     }
 
-    const newTask = {
-      id: uuidv4(),
-      text: task,
-      isCompleted: false,
-    };
-
-    onSubmit(newTask);
+    onSubmit(task);
     setTask("");
   }
 
