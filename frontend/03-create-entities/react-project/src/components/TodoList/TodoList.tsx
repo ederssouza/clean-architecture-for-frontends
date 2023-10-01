@@ -1,44 +1,38 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { TaskProps, TodoListItem } from "../TodoListItem";
 import { TodoInput } from "../TodoInput";
+import { TodoList as TodoListClass } from "../../entities";
 
 function TodoList() {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
+  const todoList = useMemo(() => {
+    return new TodoListClass();
+  }, []);
 
-  const totalTasks = tasks.length;
-  const hasValidTasks = tasks.length > 0;
+  const totalTasks = todoList.getTotal();
+  const hasValidTasks = totalTasks > 0;
 
-  function handleSubmit(task: TaskProps) {
-    setTasks((prevState) => [...prevState, task]);
+  function handleSubmit(task: string) {
+    const newTask = todoList.add(task);
+    setTasks((prevState) => [...prevState, newTask]);
   }
 
   function handleToggleDone(taskId: string) {
-    const updatedTasks = tasks.map((task) => {
-      if (task.id === taskId) {
-        return {
-          ...task,
-          isCompleted: !task.isCompleted,
-        };
-      }
-
-      return task;
-    });
-
+    const updatedTasks = todoList.toggleDone(taskId);
     setTasks(updatedTasks);
   }
 
   function handleRemoveTask(taskId: string) {
-    const updatedTasks = tasks.filter((task) => task.id !== taskId);
-
+    const updatedTasks = todoList.remove(taskId);
     setTasks(updatedTasks);
   }
 
   useEffect(() => {
     async function fetchTodos() {
       try {
-        const res = await axios.get("http://localhost:3000/todos");
-        const tasks = res.data;
+        const res = await axios.get<TaskProps[]>("http://localhost:3000/todos");
+        const tasks = res.data.map((task) => todoList.add(task.text));
 
         setTasks(tasks);
 
@@ -53,7 +47,7 @@ function TodoList() {
     }
 
     fetchTodos();
-  }, []);
+  }, [todoList]);
 
   return (
     <div>
