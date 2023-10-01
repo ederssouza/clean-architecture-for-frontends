@@ -66,14 +66,8 @@ function TodoList() {
         const tasks = res.data;
 
         setTasks(tasks);
-
-        /**
-         * WARNING: catch was ignored in the test on purpose,
-         * don't do this in real applications
-         */
-        /* c8 ignore next 3 */
       } catch (error) {
-        setTasks([]);
+        alert("An error has occurred");
       }
     }
 

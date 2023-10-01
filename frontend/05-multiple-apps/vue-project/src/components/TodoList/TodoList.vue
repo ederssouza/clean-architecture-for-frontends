@@ -27,14 +27,8 @@ onMounted(() => {
       const tasks = await todosGateway?.getTodos();
 
       tasks?.forEach((task) => todoList.value.add(task.text));
-
-      /**
-       * WARNING: catch was ignored in the test on purpose,
-       * don't do this in real applications
-       */
-      /* c8 ignore next 3 */
     } catch (error) {
-      // error...
+      alert("An error has occurred");
     }
   }
 

@@ -41,14 +41,8 @@ function TodoList(props: Props) {
         const tasks = res.map((task) => todoList.add(task.text));
 
         setTasks(tasks);
-
-        /**
-         * WARNING: catch was ignored in the test on purpose,
-         * don't do this in real applications
-         */
-        /* c8 ignore next 3 */
       } catch (error) {
-        setTasks([]);
+        alert("An error has occurred");
       }
     }
 
