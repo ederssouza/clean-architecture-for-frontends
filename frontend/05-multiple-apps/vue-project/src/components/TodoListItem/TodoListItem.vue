@@ -1,13 +1,13 @@
 <script setup lang="ts">
 type Task = {
-  id: number;
+  id: string;
   text: string;
   isCompleted: boolean;
 };
 
 defineProps<{
   task: Task;
-  onRemoveTask: (taskId: number) => void;
+  onRemoveTask: (taskId: string) => void;
 }>();
 </script>
 
