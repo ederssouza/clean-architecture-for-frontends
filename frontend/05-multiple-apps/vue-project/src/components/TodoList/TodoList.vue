@@ -23,10 +23,10 @@ function handleRemoveTask(taskId: string) {
 onMounted(() => {
   async function fetchTodos() {
     try {
-      const todosGateway = inject("todosGateway") as TodosGateway;
-      const tasks = await todosGateway.getTodos();
+      const todosGateway = inject<TodosGateway>("todosGateway");
+      const tasks = await todosGateway?.getTodos();
 
-      tasks.forEach((task) => todoList.value.add(task.text));
+      tasks?.forEach((task) => todoList.value.add(task.text));
 
       /**
        * WARNING: catch was ignored in the test on purpose,
